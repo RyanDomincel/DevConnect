@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class ProfileGithub extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      clientId: '26c196bacea7db10cf48',
-      clientSecret: '0885cb690e07d2a93a6afb0891fb552fd9f7aa53',
+      clientId: "26c196bacea7db10cf48",
+      clientSecret: "0885cb690e07d2a93a6afb0891fb552fd9f7aa53",
       count: 5,
-      sort: 'created: asc',
-      repos: []
+      sort: "created: asc",
+      repos: [],
+      msg: false
     };
   }
 
@@ -23,11 +24,20 @@ class ProfileGithub extends Component {
     )
       .then(res => res.json())
       .then(data => {
-        if (this.refs.myRef) {
-          this.setState({ repos: data });
+        // if (this.refs.myRef) {
+        //   this.setState({ repos: data });
+        // }
+
+        if (data.message === "Not Found") {
+          console.log("cannot get user");
+          this.setState({ msg: true });
+        } else {
+          if (this.refs.myRef) {
+            this.setState({ repos: data });
+          }
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log("err"));
   }
 
   render() {
@@ -58,11 +68,15 @@ class ProfileGithub extends Component {
         </div>
       </div>
     ));
-    return (
+    return !this.state.msg ? (
       <div ref="myRef">
         <hr />
         <h3 className="mb-4">Latest Github Repos</h3>
         {repoItems}
+      </div>
+    ) : (
+      <div>
+        <h1>Github username not found</h1>
       </div>
     );
   }
