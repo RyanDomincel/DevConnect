@@ -1,6 +1,6 @@
-import React from "react";
-import classnames from "classnames";
-import PropTypes from "prop-types";
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const TextFieldGroup = ({
   name,
@@ -16,9 +16,9 @@ const TextFieldGroup = ({
   return (
     <div className="form-group">
       <input
-        type="email"
-        className={classnames("form-control form-control-lg", {
-          "is-invalid": error
+        type={type}
+        className={classnames('form-control form-control-lg', {
+          'is-invalid': error
         })}
         placeholder={placeholder}
         name={name}
@@ -31,6 +31,7 @@ const TextFieldGroup = ({
     </div>
   );
 };
+
 TextFieldGroup.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
@@ -43,6 +44,7 @@ TextFieldGroup.propTypes = {
 };
 
 TextFieldGroup.defaultProps = {
-  type: "text"
+  type: 'text'
 };
+
 export default TextFieldGroup;
